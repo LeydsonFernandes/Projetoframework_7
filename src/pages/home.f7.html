@@ -1,0 +1,58 @@
+<template>
+  <div class="page" data-name="home">
+    {{#alunos}}
+    <a 
+      @click="abrirAlert"
+      href='https://wa.me/{{zap}}'
+      class="button class=button button-fill color-lightblue button-raised margin-bottom margin-top link external"
+    >
+    {{nome}}
+   
+  </a>
+   
+    {{/alunos}}
+
+  </div>
+</template>
+<script>
+
+export default {
+  data:function(){
+    return{
+      
+      alunos:[
+        {nome:'leydson', idade: 19, zap:'98208726'},
+        {nome:'lari', idade: 18, zap:'98208726'},
+        {nome:'rapha', idade: 18,zap:'98208726'}
+      ]
+    }
+  },
+  methods:{
+    abrirAlert: function(event){
+      event.preventDefault();
+      const component = this;
+      const {$app:app} = component;
+      const {target: { href}} = event;
+     
+      console.log(href)
+
+      const alertZap = app.dialog.create({
+       
+        title:'Atenção!!!!',
+        
+        text: 'Você deseja realmente abrir o zap??',
+        
+        buttons:[
+          { text:'Sim',
+            onClick:function(){
+              window.location = href;
+            }
+          },
+          { text:'Não'},
+        ]
+      });
+      alertZap.open();
+    }
+  }
+}
+</script>
